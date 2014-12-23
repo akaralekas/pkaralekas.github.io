@@ -11,6 +11,13 @@ body {
   margin: 0 auto;
   margin-top: 20px;
 }
+.header-template {
+  padding: 40px 15px;
+  text-align: center;
+  max-width: 850px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
 /* Custom page footer */
 .footer {
   text-align: center;
