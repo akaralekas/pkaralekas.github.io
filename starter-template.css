@@ -29,7 +29,10 @@ body {
 }
 /* Custom resume style */
 .resume-template {
-  padding: 40px 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 0;
+  padding-bottom: 0;
   max-width: 850px;
   margin: 0 auto;
 }
