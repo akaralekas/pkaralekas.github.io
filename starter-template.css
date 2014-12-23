@@ -10,13 +10,11 @@ body {
 }
 /* Custom page footer */
 .footer {
+  text-align: center;
   padding-top: 15px;
   padding-bottom: 5px;
   color: #777;
   border-top: 1px solid #e5e5e5;
-  li {
-    display: inline;
-  }
 }
 #footer li {
   display: inline;
