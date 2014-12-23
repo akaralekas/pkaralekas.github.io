@@ -13,6 +13,8 @@ body {
 }
 .header-template {
   text-align: center;
+  margin: 0 0;
+  padding: 0 0;
 }
 /* Custom page footer */
 .footer {
