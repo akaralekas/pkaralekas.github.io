@@ -97,7 +97,7 @@
         
         <h1 id="anharmonicities">Anharmonicities</h1>
         <p>For the first part of my research, I set out to develop a better understanding of how to introduce in simulation the anharmonicity described above, and also how their presence effects the final state of a qubit after a pulse sequence has been applied. 
-        In addition to the starting Hamiltonian, the entire Hamiltonian for our single-qubit five-level system includes an additional term, <span class="LaTeX">$H_{\mathrm{drive}}$</span>, which represents the driving pulse used to apply qubit rotations to the system. 
+        In addition to the starting Hamiltonian, the entire Hamiltonian for our single-qubit five-level system includes an additional term, <span class="LaTeX">$$H_{\mathrm{drive}}$$</span>, which represents the driving pulse used to apply qubit rotations to the system. 
         In this case, we have chosen to use a Gaussian with a standard deviation of 4 nanoseconds for the driving pulse. 
         Considering both terms, our Hamiltonian becomes: <span class="LaTeX">$$H = H_0 + H_{\mathrm{drive}}$$</span> 
         And, expanding out the <span class="LaTeX">$H_0$</span> and the <span class="LaTeX">$H_{\mathrm{drive}}$</span> terms gives us: <span class="LaTeX">$$H = \frac{\alpha}{2}(a^\dagger{})^2a^2 + \frac{\varepsilon_I(t)}{\sqrt{2}}(a + a^\dagger{})$$</span> 
@@ -132,7 +132,7 @@
            0\\
            \end{pmatrix}
            \hspace{1.5 pc}
-           \text{Excited state} = \Ket{1} =
+           \text{Excited state} = \left|1\right\rangle =
            \begin{pmatrix}
            0\\
            1\\
