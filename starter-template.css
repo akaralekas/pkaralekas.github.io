@@ -35,6 +35,7 @@ body {
 /* Custom matricies */
 .matricies {
   text-align: center;
+  margin: 0 auto;
 }
 #matricies li {
   display: inline;
