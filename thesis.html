@@ -57,3 +57,103 @@
     </nav>
 
     <div class="container">
+      <div class="resume-template">
+        <h1 id="overview">Overview</h1>
+        <p>As stated in my thesis proposal, I set for myself a few goals for the fall semester. To begin, the overall theme of my research is to investigate simple quantum systems by implementing numerical simulations. More specifically, I wanted to learn more about how to properly set up a simulated quantum system and explore ways in which we could manipulate it. In relation to setting up a quantum system, I explored the effects of manipulating a multi-level system, which I then investigated further for the first half of the semester. For the second half, I set out to gain a better understanding of certain errors that can occur in a physical system by recreating them in simulation, specifically using a scheme to diagnose errors called randomized benchmarking.</p>
+        <p>In line with these goals, my first task was to get a handle on the tools necessary to perform quantum simulations. Using the QuTiP simulation and pulse sequence libraries developed by members of the lab, I learned how to set up a single-qubit simulation environment and introduce time-dependent driving terms. To set up the system, we must first define its starting Hamiltonian. The Hamiltonian will define the evolution of the quantum system. For a two-level system this equation is represented by 2x2 operators called Pauli matrices. However, for physical quantum systems like superconducting qubits, a two-level system is only an approximation of reality. This is one of the major difficulties with determining a physical qubit’s response to a time-dependent drive—although we want to represent physical qubits as merely a ground and excited state, we are in fact dealing with a multi-level quantum system. One way to combat this problem is by numerically simulating an approximation of the physical Hamiltonian. A superconducting qubit is well approximated by an anharmonic quantum oscillator. By altering the energy levels of the various photon number states, we can create a set of non-uniform energy differences between the states. These non-uniform differences in effect decrease the probability that a driving pulse will result in an undesirable photon number state (i.e. one that is higher than the first excited state).</p>
+        <p>After understanding how to prepare the quantum system, our next goal was to investigate the possible operations we could perform on the system. When dealing with qubits, we typically use what is called the Bloch sphere to visualize its state. The Bloch sphere is a three-dimensional representation of all the possible superposition states of a qubit, with the north and south poles representing the excited and ground states of the system. The vector from the center of the sphere to a point on the surface represents the current state of the qubit, and being able to correctly manipulate this state is a critical step in building a system capable of performing quantum computations. To manipulate a physical qubit, one can alter its state by applying pulses that act as rotations around the Bloch sphere. The lab uses microwaves to perform these pulses on the qubit, where a <span class="LaTeX">$\pi$</span> pulse rotates the state 180 degrees around the Bloch sphere, and a <span class="LaTeX">$\pi/2$</span> pulse rotates the state 90 degrees. However, because quantum systems are extremely sensitive to errors, these pulses do not always result in the desired state. Thus, for the second half of the semester I began to investigate these errors.</p>
+        <p><img src="PULSElabeled" title="fig:" alt="Gaussian driving pulse (left) and photon number distribution as a function of anharmonicity (right). For the pulse, Channel qI shows x amplitude and Channel qQ shows y amplitude. Notice that as the anharmonicity term approaches zero the drive creates photons that are distributed across all levels of the multi-level system." /> <img src="QANHARMlabeled2" title="fig:" alt="Gaussian driving pulse (left) and photon number distribution as a function of anharmonicity (right). For the pulse, Channel qI shows x amplitude and Channel qQ shows y amplitude. Notice that as the anharmonicity term approaches zero the drive creates photons that are distributed across all levels of the multi-level system." /></p>
+        <h1 id="anharmonicities">Anharmonicities</h1>
+        <p>For the first part of my research, I set out to develop a better understanding of how to introduce in simulation the anharmonicity described above, and also how their presence effects the final state of a qubit after a pulse sequence has been applied. In addition to the starting Hamiltonian, the entire Hamiltonian for our single-qubit five-level system includes an additional term, <span class="LaTeX">$H_{\mathrm{drive}}$</span>, which represents the driving pulse used to apply qubit rotations to the system. In this case, we have chosen to use a Gaussian with a standard deviation of 4 nanoseconds for the driving pulse. Considering both terms, our Hamiltonian becomes: <span class="LaTeX">$$H = H_0 + H_{\mathrm{drive}}$$</span> And, expanding out the <span class="LaTeX">$H_0$</span> and the <span class="LaTeX">$H_{\mathrm{drive}}$</span> terms gives us: <span class="LaTeX">$$H = \frac{\alpha}{2}(a^\dagger{})^2a^2 + \frac{\varepsilon_I(t)}{\sqrt{2}}(a + a^\dagger{})$$</span> Looking at the above formula, <span class="LaTeX">$\alpha$</span> represents the amplitude of the anharmonicity we are introducing into the system, and <span class="LaTeX">$\varepsilon$</span> is the amplitude envelope for the driving pulse (seen in Figure 1). In addition, the <span class="LaTeX">$a$</span> and <span class="LaTeX">$a^\dagger$</span> terms represent the creation and annihilation operators, respectively. In order to gain insight into how the anharmonicity term affects the quantum system, I developed a simulation that plots the resulting photon state distributions of a variety of systems with different anharmonicities. These anharmonicities range from zero (meaning that the energy level differences are all uniform) to -2<span class="LaTeX">$\pi{}*250*10^6$</span> Hz (a typical anharmonicity in a physical system). The resulting plot can be seen above in Figure 1. At our desired value, the distribution is equivalent to that of a two-level system (seen in Figure 2). This agrees with intuition because the anharmonicity acts as a barrier between the system and the higher level energy states. At zero, the photon distribution is spread across the different energy levels, behaving much like a typical anharmonic oscillator (also seen in Figure 2). Thus, we see that decreasing the amplitude of the anharmonicity from 0 has a drastic effect on the photon number distribution, and can allow use to use a qubit more effectively.</p>
+        <p><img src="DIST2labeled" title="fig:" alt="Photon number state distributions as a function of the length of the driving pulse for both a two-level system (left) and a five-level anharmonic oscillator (right)." /> <img src="DIST5-4labeled" title="fig:" alt="Photon number state distributions as a function of the length of the driving pulse for both a two-level system (left) and a five-level anharmonic oscillator (right)." /></p>
+        <h1 id="randomized-benchmarking">Randomized Benchmarking</h1>
+        <p>For the second part of my research, I began to investigate the errors associated with performing qubit rotations. To do this, we decided to simulate a technique known as randomized benchmarking, a process in which a known but random series of pulses of various lengths (called a pulse train) is applied to a physical or virtual qubit (virtual in the case of our simulation), and the final state of the qubit is compared to the state we would expect if no errors had occurred. To determine this ideal state, we model the qubit as a two-level system, where its state is a two-dimensional vector and the pulses are 2x2 matricies. The final state can then be determined simply by performing matrix multiplication on the initial state of the qubit. Once the actual and ideal final states are determined, they can be compared to determine the fidelity associated with a certain pulse train length. When repeated multiple times with various pulse train lengths, we can then analyze how the fidelity of an operation varies as the sequence of pulses grows longer and longer.</p>
+        <div class="figure">
+        <img src="bloch50" alt="Sample Bloch sphere (left) showing the effect of a pulse train (right) on a qubit in the ground state. The blue lines on the Bloch sphere represent the trajectory of the state over the course of the operations. For the pulse train, Channel qI shows x pulses and Channel qQ shows y pulses. Looking at the amplitudes of these pulses, the larger amplitudes represent \pi pulses and the smaller amplitudes represent \pi/2 pulses." />
+        <p class="caption">Sample Bloch sphere (left) showing the effect of a pulse train (right) on a qubit in the ground state. The blue lines on the Bloch sphere represent the trajectory of the state over the course of the operations. For the pulse train, Channel qI shows <span class="LaTeX">$x$</span> pulses and Channel qQ shows <span class="LaTeX">$y$</span> pulses. Looking at the amplitudes of these pulses, the larger amplitudes represent <span class="LaTeX">$\pi$</span> pulses and the smaller amplitudes represent <span class="LaTeX">$\pi/2$</span> pulses.</p>
+        </div>
+        <div class="figure">
+        <img src="seq50labeled" alt="Sample Bloch sphere (left) showing the effect of a pulse train (right) on a qubit in the ground state. The blue lines on the Bloch sphere represent the trajectory of the state over the course of the operations. For the pulse train, Channel qI shows x pulses and Channel qQ shows y pulses. Looking at the amplitudes of these pulses, the larger amplitudes represent \pi pulses and the smaller amplitudes represent \pi/2 pulses." />
+        <p class="caption">Sample Bloch sphere (left) showing the effect of a pulse train (right) on a qubit in the ground state. The blue lines on the Bloch sphere represent the trajectory of the state over the course of the operations. For the pulse train, Channel qI shows <span class="LaTeX">$x$</span> pulses and Channel qQ shows <span class="LaTeX">$y$</span> pulses. Looking at the amplitudes of these pulses, the larger amplitudes represent <span class="LaTeX">$\pi$</span> pulses and the smaller amplitudes represent <span class="LaTeX">$\pi/2$</span> pulses.</p>
+        </div>
+        <p>To begin, we need to understand the details of how our two-level system and the various pulses can be represented mathematically. As mentioned before, the state of the system is represented by a two-dimensional vector. The basis for our system includes the following two states:</p>
+        <p><span class="LaTeX">$$\text{Ground state} = \Ket{0} =
+           \begin{pmatrix}
+           1\\
+           0\\
+           \end{pmatrix}
+           \hspace{1.5 pc}
+           \text{Excited state} = \Ket{1} =
+           \begin{pmatrix}
+           0\\
+           1\\
+           \end{pmatrix}$$</span></p>
+        <p>Starting in the ground state, we randomly select pairs of pulses to form the pulse train, which altogether is represented as <span class="LaTeX">$\prod_iP_iC_i$</span>, where <span class="LaTeX">$P_i$</span> is a Pauli matrix (a <span class="LaTeX">$\pi$</span> pulse) with <span class="LaTeX">$i = \sigma_x, \sigma_y, \sigma_z, \mathbbm{1}$</span> and <span class="LaTeX">$C_i$</span> is a Clifford group generator (a <span class="LaTeX">$\pi/2$</span> pulse) with <span class="LaTeX">$i = \pm x, \pm y$</span>. These matricies are as follows:</p>
+        <p><span class="LaTeX">$$P_{\mathbbm{1}} = \mathbbm{1} = 
+           \begin{pmatrix}
+           1 &amp; 0\\
+           0 &amp; 1\\
+           \end{pmatrix}
+           \hspace{1.5 pc}
+           P_x = \sigma_x = 
+           \begin{pmatrix}
+           0 &amp; 1\\
+           1 &amp; 0\\
+           \end{pmatrix}
+           \hspace{1.5 pc}
+           P_y = \sigma_y = 
+           \begin{pmatrix}
+           0 &amp; -i\\
+           i &amp; 0\\
+           \end{pmatrix}
+           \hspace{1.5 pc}
+           P_z = \sigma_z = 
+           \begin{pmatrix}
+           1 &amp; 0\\
+           0 &amp; -1\\
+           \end{pmatrix}$$</span></p>
+        <p><span class="LaTeX">$$C_{\pm x} = (\mathbbm{1} \mp i\sigma_x)/\sqrt{2} =
+           \frac{1}{\sqrt{2}}
+           \begin{pmatrix}
+           1 &amp; \mp i\\
+           \mp i &amp; 1\\
+           \end{pmatrix}
+           \hspace{1.5 pc}
+           C_{\pm y} = (\mathbbm{1} \mp i\sigma_y)/\sqrt{2} = 
+           \frac{1}{\sqrt{2}}
+           \begin{pmatrix}
+           1 &amp; \mp 1\\
+           \pm 1 &amp; 1\\
+           \end{pmatrix}
+           \vspace{1 pc}$$</span></p>
+        <p>Now that we have our pulse train, we can determine our expected state by applying the pulse train to the ground state, which can be represented as <span class="LaTeX">$\Ket{\psi} = \prod_iP_iC_i\Ket{0}$</span>. With this expected state in mind, we can then find the fidelity of our series of processes by taking the square of the inner product of the expected and actual final states. In quantum mechanics, fidelity is a metric that denotes the distance between two quantum states. A value of 1 means that two states are identical while a value of 0 means the two states are orthogonal to each other. Calling the actual state <span class="LaTeX">$\Ket{\phi}$</span>, this means that the fidelity of our pulse train is <span class="LaTeX">$|\Braket{\phi|\psi}|^2$</span>.</p>
+        <p>With an understanding of the mathematics behind qubit rotations, I then set out to develop a simulation to analyze the fidelity of randomized benchmarking experiments of various lengths. First, I developed a dictionary of the possible matricies and pulses, from which the simulation would randomly select pairs of Pauli and Clifford pulses. Using an imperfectly tuned pulse (to more easily observe its behavior) with shape and size similar to that from the previous section, I then linked up the simulation’s sequencer with the randomized pulse train, and could then find the evolution of its state over the course of the sequence. A sample pulse train and state evolution can be seen in Figure 3. Comparing these states to the ideal states produced after each matrix multiplication, I could then find how the fidelity of the process changed as the pulse train grew in length. One can see the effect of running this simulation 50 times with a max pulse train length of 100 in Figure 4. These plots agree with intuition because the fidelity clearly decreases monotonically as the length of the pulse train increases, but the fact that the decrease is not linear warrants further study (and could just be a result of too few runs). In addition, for that particular set of simulations, the average fidelity of the final state was 0.64774966.</p>
+        <p><img src="fid50labeled" title="fig:" alt="Sample set of fidelity traces as a function of pulse train length (left) and the average fidelity across all the 50 traces as a function of pulse train length (right). The average fidelity plot has error bars that represent \pm \sigma." /> <img src="avgfid50labeled" title="fig:" alt="Sample set of fidelity traces as a function of pulse train length (left) and the average fidelity across all the 50 traces as a function of pulse train length (right). The average fidelity plot has error bars that represent \pm \sigma." /></p>
+        <h1 id="spring-plans">Spring Plans</h1>
+        <p>Now, having implemented a working simulation of randomized benchmarking, the next immediate step is to make my simulation code both object-oriented and modular, and by doing so turn it into an importable library so that the lab can easily use it when performing randomized benchmarking. This requires separating the program into different functions to accomplish its various tasks, and building a randomized benchmarking simulation object to encapsulate it all. In addition to fine-tuning my randomized benchmarking simulation, there are a couple more areas I plan to investigate in the spring. First off is the idea of pulse tuning. For this simulation I estimated the parameters of the Gaussian pulses for the sake of time, but in actuality the pulses should undergo a process in which a number of tests are run to tune the parameters to their desired values. Thus, this pulse tuning will need to be added to my simulation to increase its level of accuracy. Last, now that I have begun to get a handle on the ways that errors manifest themselves during qubit rotations, the final step would be to figure out a way to fix those errors. Thus, I want to gain a better understanding of the current methods for correcting these errors, and hopefully with that knowledge develop a simulation where I can test those methods.</p>
+        <h1 id="references">References</h1>
+        <p><strong>Superconducting Circuits for Quantum Information: An Outlook</strong></p>
+        <p>M. H. Devoret and R. J. Schoelkopf. <em>Science</em> <strong>339</strong> 1169-1174 (2013)</p>
+        <p><strong>Randomized Benchmarking and Process Tomography for Gate Errors in a Solid-State Qubit</strong></p>
+        <p>J. M. Chow, J. M. Gambetta, L. Tornberg, Jens Koch, Lev S. Bishop, A. A. Houck, B. R. Johnson, L.</p>
+        <p>Frunzio, S. M. Girvin, and R. J. Schoelkopf. <em>Phys. Rev. Lett.</em> <strong>102</strong>, 090502 (2009)</p>
+        <p><strong>Circuit QED and engineering charge based superconducting qubits</strong></p>
+        <p>S. M. Girvin, M. H. Devoret, and R. J. Schoelkopf. <em>Phys. Scr. T</em> <strong>137</strong>, 014012 (2009)</p>
+        <p><strong>Quantum Information Processing with Circuit Quantum Electrodynamics</strong></p>
+        <p>A. Blais, J. Gambetta, A. Wallraff, D. I. Schuster, S. M. Girvin, M. H. Devoret, and R. J. Schoelkopf.</p>
+        <p><em>Phys Rev A</em> <strong>75</strong>, 032329 (2007)</p>
+      </div>
+
+      <footer class="footer" id="footer">
+      		<p>&nbsp; &copy; 2014 Peter J. Karalekas &nbsp; &nbsp; <a href="mailto:peter.karalekas@yale.edu">peter.karalekas@yale.edu</a> &nbsp; </p>
+    	</footer>
+    	
+    </div><!-- /.container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>
