@@ -194,7 +194,7 @@
         With this expected state in mind, we can then find the fidelity of our series of processes by taking the square of the inner product of the expected and actual final states. 
         In quantum mechanics, fidelity is a metric that denotes the distance between two quantum states. 
         A value of 1 means that two states are identical while a value of 0 means the two states are orthogonal to each other. 
-        Calling the actual state <span class="math">\(\left|\phi\right\rangle\)</span>, this means that the fidelity of our pulse train is <span class="math">\(\left{|\langle}\phi|\psi\right{\rangle||^2\)</span>.</p>
+        Calling the actual state <span class="math">\(\left|\phi\right\rangle\)</span>, this means that the fidelity of our pulse train is <span class="math">\(\left{|\langle}\phi|\psi\right{\rangle|}^2\)</span>.</p>
         <p>With an understanding of the mathematics behind qubit rotations, I then set out to develop a simulation to analyze the fidelity of randomized benchmarking experiments of various lengths. 
         First, I developed a dictionary of the possible matricies and pulses, from which the simulation would randomly select pairs of Pauli and Clifford pulses. 
         Using an imperfectly tuned pulse (to more easily observe its behavior) with shape and size similar to that from the previous section, I then linked up the simulation’s sequencer with the randomized pulse train, and could then find the evolution of its state over the course of the sequence. 
