@@ -43,6 +43,12 @@ body {
 /* Custom resume style */
 .resume-template {
   padding-top: 0;
+  padding-bottom: 0;
+  max-width: 850px;
+  margin: 0 auto;
+}
+.resume-template-end {
+  padding-top: 0;
   padding-bottom: 20px;
   max-width: 850px;
   margin: 0 auto;
