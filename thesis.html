@@ -149,11 +149,11 @@
            1\\
            \end{pmatrix}$$</span></p>
         <p>Starting in the ground state, we randomly select pairs of pulses to form the pulse train, which altogether is represented as <span class="math">\(\prod_iP_iC_i\)</span>, 
-        where <span class="math">\(P_i\)</span> is a Pauli matrix (a <span class="math">\(\pi\)</span> pulse) with <span class="math">\(i = \sigma_x, \sigma_y, \sigma_z, \mathbbm{1}\)</span> 
+        where <span class="math">\(P_i\)</span> is a Pauli matrix (a <span class="math">\(\pi\)</span> pulse) with <span class="math">\(i = \sigma_x, \sigma_y, \sigma_z, I\)</span> 
         and <span class="math">\(C_i\)</span> is a Clifford group generator (a <span class="math">\(\pi/2\)</span> pulse) with <span class="math">\(i = \pm x, \pm y\)</span>. 
         These matricies are as follows:
         </p>
-        <p><span class="LaTeX">$$P_{\mathbbm{1}} = \mathbbm{1} = 
+        <p><span class="LaTeX">$$P_{I} = I = 
            \begin{pmatrix}
            1 &amp; 0\\
            0 &amp; 1\\
@@ -176,14 +176,14 @@
            1 &amp; 0\\
            0 &amp; -1\\
            \end{pmatrix}$$</span></p>
-        <p><span class="LaTeX">$$C_{\pm x} = (\mathbbm{1} \mp i\sigma_x)/\sqrt{2} =
+        <p><span class="LaTeX">$$C_{\pm x} = (I \mp i\sigma_x)/\sqrt{2} =
            \frac{1}{\sqrt{2}}
            \begin{pmatrix}
            1 &amp; \mp i\\
            \mp i &amp; 1\\
            \end{pmatrix}
            \hspace{1.5 pc}
-           C_{\pm y} = (\mathbbm{1} \mp i\sigma_y)/\sqrt{2} = 
+           C_{\pm y} = (I \mp i\sigma_y)/\sqrt{2} = 
            \frac{1}{\sqrt{2}}
            \begin{pmatrix}
            1 &amp; \mp 1\\
