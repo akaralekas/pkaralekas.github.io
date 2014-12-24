@@ -60,11 +60,11 @@
     <div class="container">
       <div class="header-template">
         <h1 class="title"><strong>Fall End of Term Progess Report</strong></h1>
-        <h2 class="author">Peter Karalekas<br>Thesis Advisor: Robert Schoelkopf</h2>
+        <h2 class="author">Thesis Advisor: Robert Schoelkopf</h2>
       </div>
     
       <div class="resume-template">
-        <h1 id="overview">Overview</h1>
+        <h2 id="overview">Overview</h2>
         <p>As stated in my thesis proposal, I set for myself a few goals for the fall semester. 
         To begin, the overall theme of my research is to investigate simple quantum systems by implementing numerical simulations. 
         More specifically, I wanted to learn more about how to properly set up a simulated quantum system and explore ways in which we could manipulate it. 
@@ -95,7 +95,7 @@
         <img src="QANHARMlabeled2" title="fig:" alt="Gaussian driving pulse (left) and photon number distribution as a function of anharmonicity (right). For the pulse, Channel qI shows x amplitude and Channel qQ shows y amplitude. Notice that as the anharmonicity term approaches zero the drive creates photons that are distributed across all levels of the multi-level system." />
         </p>
         
-        <h1 id="anharmonicities">Anharmonicities</h1>
+        <h2 id="anharmonicities">Anharmonicities</h2>
         <p>For the first part of my research, I set out to develop a better understanding of how to introduce in simulation the anharmonicity described above, and also how their presence effects the final state of a qubit after a pulse sequence has been applied. 
         In addition to the starting Hamiltonian, the entire Hamiltonian for our single-qubit five-level system includes an additional term, <span class="math">\(H_{\mathrm{drive}}\)</span>, which represents the driving pulse used to apply qubit rotations to the system. 
         In this case, we have chosen to use a Gaussian with a standard deviation of 4 nanoseconds for the driving pulse. 
@@ -117,7 +117,7 @@
         <img src="DIST5-4labeled" title="fig:" alt="Photon number state distributions as a function of the length of the driving pulse for both a two-level system (left) and a five-level anharmonic oscillator (right)." />
         </p>
         
-        <h1 id="randomized-benchmarking">Randomized Benchmarking</h1>
+        <h2 id="randomized-benchmarking">Randomized Benchmarking</h2>
         <p>For the second part of my research, I began to investigate the errors associated with performing qubit rotations. 
         To do this, we decided to simulate a technique known as randomized benchmarking, a process in which a known but random series of pulses of various lengths (called a pulse train) is applied to a physical or virtual qubit (virtual in the case of our simulation), and the final state of the qubit is compared to the state we would expect if no errors had occurred. 
         To determine this ideal state, we model the qubit as a two-level system, where its state is a two-dimensional vector and the pulses are 2x2 matricies. 
@@ -194,7 +194,7 @@
         With this expected state in mind, we can then find the fidelity of our series of processes by taking the square of the inner product of the expected and actual final states. 
         In quantum mechanics, fidelity is a metric that denotes the distance between two quantum states. 
         A value of 1 means that two states are identical while a value of 0 means the two states are orthogonal to each other. 
-        Calling the actual state <span class="math">\(\left|\phi\right\rangle\)</span>, this means that the fidelity of our pulse train is <span class="math">\(|\left\langle\phi|\psi\right\rangle|^2\)</span>.</p>
+        Calling the actual state <span class="math">\(\left|\phi\right\rangle\)</span>, this means that the fidelity of our pulse train is <span class="math">\(\left{|\langle}\phi|\psi\right{\rangle||^2\)</span>.</p>
         <p>With an understanding of the mathematics behind qubit rotations, I then set out to develop a simulation to analyze the fidelity of randomized benchmarking experiments of various lengths. 
         First, I developed a dictionary of the possible matricies and pulses, from which the simulation would randomly select pairs of Pauli and Clifford pulses. 
         Using an imperfectly tuned pulse (to more easily observe its behavior) with shape and size similar to that from the previous section, I then linked up the simulation’s sequencer with the randomized pulse train, and could then find the evolution of its state over the course of the sequence. 
@@ -205,7 +205,7 @@
         In addition, for that particular set of simulations, the average fidelity of the final state was 0.64774966.</p>
         <p><img src="fid50labeled" title="fig:" alt="Sample set of fidelity traces as a function of pulse train length (left) and the average fidelity across all the 50 traces as a function of pulse train length (right). The average fidelity plot has error bars that represent \pm \sigma." /> <img src="avgfid50labeled" title="fig:" alt="Sample set of fidelity traces as a function of pulse train length (left) and the average fidelity across all the 50 traces as a function of pulse train length (right). The average fidelity plot has error bars that represent \pm \sigma." /></p>
         
-        <h1 id="spring-plans">Spring Plans</h1>
+        <h2 id="spring-plans">Spring Plans</h2>
         <p>Now, having implemented a working simulation of randomized benchmarking, the next immediate step is to make my simulation code both object-oriented and modular, 
         and by doing so turn it into an importable library so that the lab can easily use it when performing randomized benchmarking. 
         This requires separating the program into different functions to accomplish its various tasks, and building a randomized benchmarking simulation object to encapsulate it all. 
@@ -217,17 +217,15 @@
         Thus, I want to gain a better understanding of the current methods for correcting these errors, and hopefully with that knowledge develop a simulation where I can test those methods.
         </p>
         
-        <h1 id="references">References</h1>
+        <h2 id="references">References</h2>
         <p><strong>Superconducting Circuits for Quantum Information: An Outlook</strong></p>
         <p>M. H. Devoret and R. J. Schoelkopf. <em>Science</em> <strong>339</strong> 1169-1174 (2013)</p>
         <p><strong>Randomized Benchmarking and Process Tomography for Gate Errors in a Solid-State Qubit</strong></p>
-        <p>J. M. Chow, J. M. Gambetta, L. Tornberg, Jens Koch, Lev S. Bishop, A. A. Houck, B. R. Johnson, L.</p>
-        <p>Frunzio, S. M. Girvin, and R. J. Schoelkopf. <em>Phys. Rev. Lett.</em> <strong>102</strong>, 090502 (2009)</p>
+        <p>J. M. Chow, J. M. Gambetta, L. Tornberg, Jens Koch, Lev S. Bishop, A. A. Houck, B. R. Johnson, L. Frunzio, S. M. Girvin, and R. J. Schoelkopf. <em>Phys. Rev. Lett.</em> <strong>102</strong>, 090502 (2009)</p>
         <p><strong>Circuit QED and engineering charge based superconducting qubits</strong></p>
         <p>S. M. Girvin, M. H. Devoret, and R. J. Schoelkopf. <em>Phys. Scr. T</em> <strong>137</strong>, 014012 (2009)</p>
         <p><strong>Quantum Information Processing with Circuit Quantum Electrodynamics</strong></p>
-        <p>A. Blais, J. Gambetta, A. Wallraff, D. I. Schuster, S. M. Girvin, M. H. Devoret, and R. J. Schoelkopf.</p>
-        <p><em>Phys Rev A</em> <strong>75</strong>, 032329 (2007)</p>
+        <p>A. Blais, J. Gambetta, A. Wallraff, D. I. Schuster, S. M. Girvin, M. H. Devoret, and R. J. Schoelkopf. <em>Phys Rev A</em> <strong>75</strong>, 032329 (2007)</p>
       </div>
 
       <footer class="footer" id="footer">
