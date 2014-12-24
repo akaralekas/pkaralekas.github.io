@@ -32,6 +32,13 @@ body {
 #footer li {
   display: inline;
 }
+/* Custom matricies */
+.matricies {
+  text-align: center;
+}
+#matricies li {
+  display: inline;
+}
 /* Custom resume style */
 .resume-template {
   padding-top: 0;
